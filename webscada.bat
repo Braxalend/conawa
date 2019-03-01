@@ -1,0 +1,2 @@
+python webscada.py
+pause

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ author }}</title>
+    <meta http-equiv="Content-Type" content="text/html; Charset=UTF-8">  
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-2.0.3.js') }}"></script>
+  </head>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<body>
+<div class=page>
+  <h1>Тест WebSCADA для Arduino</h1>
+  <div class=metanav>
+  {% if not session.logged_in %}
+    <a href="{{ url_for('login') }}">Вход</a>
+  {% else %}
+    <a href="{{ url_for('logout') }}">Выход</a>
+  {% endif %}
+  </div>
+  {% block body %}{% endblock %}
+</div>
+</body>
+</html>
