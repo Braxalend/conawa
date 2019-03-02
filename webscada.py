@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session, g, redirect, url_for,abort, flash, json, jsonify
 
+
 app = Flask(__name__)
 app.debug = True
 app.config.from_object(__name__)
