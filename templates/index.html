@@ -5,18 +5,30 @@
     <meta http-equiv="Content-Type" content="text/html; Charset=UTF-8">  
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-2.0.3.js') }}"></script>
   </head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-<body>
-<div class=page>
-  <h1>Тест WebSCADA для Arduino</h1>
-  <div class=metanav>
-  {% if not session.logged_in %}
-    <a href="{{ url_for('login') }}">Вход</a>
-  {% else %}
-    <a href="{{ url_for('logout') }}">Выход</a>
-  {% endif %}
+
+<body id="body">
+  <header>
+      <div class="container">
+        <div class="head__design">
+            <h1>WebSCADA</h1>
+        <div class=metanav>
+          {% if not session.logged_in %}
+            <a href="{{ url_for('login') }}">Вход</a>
+          {% else %}
+            <a href="{{ url_for('logout') }}">Выход</a>
+          {% endif %}
+        </div>
+        </div>
+      </div>
+    </header>
+<div class="page">
+  <div class="container">
+    {% block body %}{% endblock %}
   </div>
-  {% block body %}{% endblock %}
 </div>
+
+<footer></footer>
 </body>
 </html>

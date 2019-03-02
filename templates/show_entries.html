@@ -14,40 +14,129 @@
             })
         setTimeout(gav, 10000);
         })();
-    </script>
-    <script type="text/javascript">
-    $(document).on('click', 'input.on-button',
-        function (){
-            var value = $(this).val();
-                $.ajax({
-                    type: "POST",
-                    url:"{{url_for('press_button')}}",
-                    cache: false,
-                    data: {value},
-                    success: 
-                    function () {
-                        console.log(value);
-                    },
-                    error: {
-                    function (error){
-                        console.log(error);
-                    }
-                    },
-                    statusCode: {
-                        200:
+        $(document).on('click', 'input.on-button',
+            function (){
+                var value = $(this).val();
+                    $.ajax({
+                        type: "POST",
+                        url:"{{url_for('press_button')}}",
+                        cache: false,
+                        data: {value},
+                        success: 
                         function () {
-                            console.log("Status press_button - Ok");
+                            console.log(value);
+                        },
+                        error: {
+                        function (error){
+                            console.log(error);
                         }
-                    }
-                })
-        }
-    );
+                        },
+                        statusCode: {
+                            200:
+                            function () {
+                                console.log("Status press_button - Ok");
+                            }
+                        }
+                    })
+            }
+        );
+        (function($){
+            $(function() {
+                $('.menu__mobile').on('click', function() {
+                    $(this).closest('.menu')
+                        .toggleClass('menu_state_open');
+                });
+                $('.navbar').on('click', function() {
+                    $(this).closest('.menu')
+                    .removeClass('menu_state_open');
+                });
+            });
+        })(jQuery);
+        $(document).ready(function(){
+            $('.navbar').on('click','a', function (event) {
+                //отменяем стандартную обработку нажатия по ссылке
+                event.preventDefault();
+        
+                //забираем идентификатор бока с атрибута href
+                var id  = $(this).attr('href');
+                console.log(id);
+        
+                //узнаем высоту от начала страницы до блока на который ссылается якорь
+                    top = $(id).offset().top;
+                console.log(top);
+                //анимируем переход на расстояние - top за 1500 мс
+                $('body,html').animate({scrollTop: $(id).offset().top}, 1500);
+            });
+        });
     </script>
+
+
+        <div class="menu">
+            <div class="menu__mobile">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="navbar">
+                <form>
+                    <ul>
+                        <li>
+                            <a href="#Discret">
+                                <h2>Управление дискретными каналами</h2>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#Analog">
+                                <h2>Данные с аналоговых датчиков</h2>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#PWM">
+                                <h2>Управление модулируемыми выходами</h2>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#Parser">
+                                <h2>Выборочная информация из интернета</h2>
+                            </a>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
     <span id="values"></span>
-<form action="{{url_for('press_button')}}" method="POST">
-    <p><input style="width: 200px; height: 100px" type="button" name="button" class="on-button" value="Вкл">
-    <input  style="width: 200px; height: 100px" type="button" name="button" class="on-button" value="Откл">
-    </p>
-</form>
+    <form action="{{url_for('press_button')}}" method="POST">
+        <p><input style="width: 200px; height: 100px" type="button" name="button" class="on-button" value="Вкл">
+        <input  style="width: 200px; height: 100px" type="button" name="button" class="on-button" value="Откл">
+        </p>
+    </form>
+
+    <div id="content" class="container">
+    <section id="Discret">
+        <h2>Управление дискретными каналами</h2>
+            Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum. Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его п
+    </section>
+</div>
+<div class="container">
+    <section id="Analog">
+        <h2>Данные с аналоговых датчиков</h2>
+            Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum. Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его п
+            
+    </section>
+</div>
+<div class="container">
+    <section id="PWM">
+        <h2>Управление модулируемыми выходами</h2>
+            Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum. Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов 
+    </section>
+</div>
+<div class="container">
+    <section id="Parser">
+        <h2>Выборочная информация из интернета</h2>
+            Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum. Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для 
+    </section>
+</div>
+    
   {% endif %}
 {% endblock %}
