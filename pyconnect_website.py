@@ -1,16 +1,20 @@
 from flask import Flask, render_template, request, session, g, redirect, url_for,abort, flash, json, jsonify
 from pyconnect import *
 from pyconnect_website_config import *
+from flask_debugtoolbar import DebugToolbarExtension
+import ctypes
+import logging
 import datetime
 import time
 import locale
 import cgi
 
+
 storage = cgi.FieldStorage()
 locale.setlocale(locale.LC_ALL, '')
 app = Flask(__name__)
 app.config.from_object(__name__)
-a = Arduino(serial_port='COM8')
+a = Arduino(serial_port='COM25')
 now = datetime.datetime.now().strftime("%A, %d. %B %Y %H:%M:%S")
 time.sleep(3)
 LED_PIN = 10
@@ -44,12 +48,12 @@ def show_entries():
     author = "Brax"
     return render_template('show_entries.html', author=author)
 
-@app.route('/analog_value', methods = ['POST','GET'])
-def analog_value():
+@app.route('/datetime_content', methods = ['POST','GET'])
+def datetime_content():
     readval = a.analog_read(ANALOG_PIN)
     nowdate_content = datetime.datetime.now().strftime("%a, %d.%m.%Yг.")
     nowtime_content = datetime.datetime.now().strftime("%H:%M")
-    return render_template('analog_value.html', value=round(100*(readval/1023.), 1), \
+    return render_template('datetime_content.html', value=round(100*(readval/1023.), 1), \
     nowdate_content=nowdate_content, nowtime_content=nowtime_content)
 
 @app.route('/press_button', methods = ['POST','GET'])
