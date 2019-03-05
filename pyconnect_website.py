@@ -14,7 +14,7 @@ storage = cgi.FieldStorage()
 locale.setlocale(locale.LC_ALL, '')
 app = Flask(__name__)
 app.config.from_object(__name__)
-a = Arduino(serial_port='COM25')
+a = Arduino(serial_port='COM8')
 now = datetime.datetime.now().strftime("%A, %d. %B %Y %H:%M:%S")
 time.sleep(3)
 LED_PIN = 10
@@ -50,19 +50,23 @@ def show_entries():
 
 @app.route('/datetime_content', methods = ['POST','GET'])
 def datetime_content():
-    readval = a.analog_read(ANALOG_PIN)
     nowdate_content = datetime.datetime.now().strftime("%a, %d.%m.%Yг.")
     nowtime_content = datetime.datetime.now().strftime("%H:%M")
-    return render_template('datetime_content.html', value=round(100*(readval/1023.), 1), \
-    nowdate_content=nowdate_content, nowtime_content=nowtime_content)
+    return render_template('datetime_content.html', nowdate_content=nowdate_content, \
+    nowtime_content=nowtime_content)
+
+@app.route('/analog_values', methods = ['POST','GET'])
+def analog_values():
+    readval = a.analog_read(ANALOG_PIN)
+    return render_template('analog_values.html', valuet=round(100*(readval/1023.), 1))
 
 @app.route('/press_button', methods = ['POST','GET'])
 def press_button():
     if request.method == 'POST':
-        if request.form['value'] == 'Вкл':
+        if request.form['value'] == 'On':
             print ("ON")
             a.digital_write(LED_PIN,1)
-        elif request.form['value'] == 'Откл':
+        elif request.form['value'] == 'Off':
             print ("OFF")
             a.digital_write(LED_PIN,0)
         else:
