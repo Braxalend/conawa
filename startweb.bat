@@ -1,2 +1,2 @@
-python C:\Users\admin\Desktop\Scada_Python_Arduino\ConAwA\pyconnect_website.py
+python pyconnect_website.py
 pause

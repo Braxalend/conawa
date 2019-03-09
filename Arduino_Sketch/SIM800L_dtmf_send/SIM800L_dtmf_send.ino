@@ -1,8 +1,8 @@
 #include <SoftwareSerial.h>                     
 SoftwareSerial SIM800(8, 9);                    
 
-String numCall_1 = "11111111111";
-String numCall_2 = "22222222222";
+String numCall_1 = "79050897430";
+String numCall_2 = "79050897495";
 
 #define pin_1 4 
 #define pin_2 5 
@@ -111,7 +111,7 @@ void outgoingcall(String callnumber, String dtmfcommand) {
     SIM800.println("AT+VTD=2");
     delay (1000);
     Serial.println("AT+VTS=\"" + dtmfcommand + "\"");
-    SIM800.println("AT+VTS=\"8\"");
+    SIM800.println("AT+VTS=\"" + dtmfcommand + "\"");
     delay (5000);
     Serial.println("ATH");
     SIM800.println("ATH");
