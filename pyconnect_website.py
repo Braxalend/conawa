@@ -1,14 +1,12 @@
+# -*- coding: utf-8 -*-
 from flask import Flask, render_template, request, session, g, redirect, url_for,abort, flash, json, jsonify
 from pyconnect import *
 from pyconnect_website_config import *
-from flask_debugtoolbar import DebugToolbarExtension
-import ctypes
-import logging
 import datetime
 import time
 import locale
 import cgi
-
+import sys
 
 storage = cgi.FieldStorage()
 locale.setlocale(locale.LC_ALL, '')
