@@ -64,7 +64,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="960" />
     <option name="width" value="960" />
     <option name="height" value="1040" />
@@ -166,7 +166,7 @@
       <option name="presentableId" value="Default" />
       <updated>1552474430184</updated>
       <workItem from="1552474434961" duration="2299000" />
-      <workItem from="1553427629533" duration="8182000" />
+      <workItem from="1553427629533" duration="8780000" />
     </task>
     <task id="LOCAL-00001" summary="Установил pycharm привязал проект настроил git через pycharm">
       <created>1552476966773</created>
@@ -179,10 +179,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10481000" />
+    <option name="totallyTimeSpent" value="11079000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="960" y="0" width="960" height="1040" extended-state="1" />
+    <frame x="960" y="0" width="960" height="1040" extended-state="0" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.20111111" />
