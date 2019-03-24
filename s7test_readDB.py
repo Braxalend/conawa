@@ -47,7 +47,7 @@ def get_db_size(array,bytekey,datatypekey):
 
 if __name__ == "__main__":
     plc = snap7.client.Client()
-    plc.connect('192.168.0.111',0,0)
+    plc.connect('192.168.0.111',0,2)
     itemlist = list(filter(lambda a: a!='',db.split('\n')))
 
 #    for i in range(len(itemlist)):
@@ -80,4 +80,3 @@ if __name__ == "__main__":
     temp2:\t{}
     """.format(meh.Temp_in_room,meh.Temp_in_outdoor,meh.temp2))
     plc.disconnect();
-    plc.
