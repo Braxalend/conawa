@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f144697f-13dd-406a-bfca-9b2215ca2878" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/s7connect.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/s7test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="f144697f-13dd-406a-bfca-9b2215ca2878" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,17 +73,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="ConAwA" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ConAwA" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="ProjectPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -133,21 +119,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ConAwA" type="Python.FlaskServer" factoryName="Flask server">
-      <module name="ConAwA" />
-      <option name="target" value="$PROJECT_DIR$/pyconnect_website.py" />
-      <option name="targetType" value="PATH" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.s7connect" />
@@ -166,7 +137,7 @@
       <option name="presentableId" value="Default" />
       <updated>1552474430184</updated>
       <workItem from="1552474434961" duration="2299000" />
-      <workItem from="1553427629533" duration="8780000" />
+      <workItem from="1553427629533" duration="8781000" />
     </task>
     <task id="LOCAL-00001" summary="Установил pycharm привязал проект настроил git через pycharm">
       <created>1552476966773</created>
@@ -179,7 +150,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11079000" />
+    <option name="totallyTimeSpent" value="11080000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="960" y="0" width="960" height="1040" extended-state="0" />
