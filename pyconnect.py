@@ -1,12 +1,15 @@
 import serial
+import snap7
+from snap7.util import *
+from snap7.snap7types import *
+
 class Arduino():
-    def __init__(self, serial_port='/dev/ttyUSB0', baud_rate=9600,
-            read_timeout=1):
+    def __init__(self, serial_port = '/dev/ttyUSB0', baud_rate = 9600, read_timeout=1):
         self.conn = serial.Serial(serial_port, baud_rate)
         self.conn.timeout = read_timeout
+        print("Arduino инициализирована")
     def set_pin_mode(self, pin_number, mode):
         command = (''.join(('M',mode,str(pin_number)))).encode()
-        #print 'set_pin_mode =',command,(''.join(('M',mode,str(pin_number))))
         self.conn.write(command)
     def digital_read(self, pin_number):
         command = (''.join(('RD', str(pin_number)))).encode()
@@ -16,8 +19,7 @@ class Arduino():
         if header == ('D'+ str(pin_number)):
             return int(value)
     def digital_write(self, pin_number, digital_value):
-        command = (''.join(('WD', str(pin_number), ':',
-            str(digital_value)))).encode()
+        command = (''.join(('WD', str(pin_number), ':', str(digital_value)))).encode()
         self.conn.write(command) 
     def analog_read(self, pin_number):
         command = (''.join(('RA', str(pin_number)))).encode()
@@ -27,18 +29,68 @@ class Arduino():
         if header == ('A'+ str(pin_number)):
             return int(value)
     def analog_write(self, pin_number, analog_value):
-        command = (''.join(('WA', str(pin_number), ':',
-            str(analog_value)))).encode()
+        command = (''.join(('WA', str(pin_number), ':', str(analog_value)))).encode()
         self.conn.write(command)
     def dht_read(self):
         command = (''.join(('S'))).encode()
- #       print (command)
         self.conn.write(command)
         line_received = self.conn.readline().decode().strip()
- #       print (line_received)
         header, value_h, value_t = line_received.split(':')
         if header == ('S'):
             return (value_h, value_t)          
-    def close():
+    def close(self):
         self.conn.close()
         print ("Соединение с Arduino закрыто")
+
+
+class S7300():
+    def __init__(self, ip_addr = '192.168.0.111',  rack = 0, slot = 2):
+        self.plc = snap7.client.Client()
+        self.plc.connect(ip_addr, rack, slot)
+        if self.plc.get_connected():
+            print('S7-300 инициализирован')
+        else:
+            print('Нет связи с S7-300')
+
+    """
+    Area table
+    Value Mean
+    S7AreaPE 0x81 Process Inputs.  - areas['PE']
+    S7AreaPA 0x82 Process Outputs. - areas['PA']
+    S7AreaMK 0x83 Merkers.         - areas['MK']
+    S7AreaDB 0x84 DB               - areas['DB']
+    S7AreaCT 0x1C Counters.        - areas['CT']
+    S7AreaTM 0x1D Timers           - areas['TM']
+    """
+
+    def WriteDOutput( self,bytebit,cmd):
+        byte,bit = bytebit.split('.')
+        byte,bit = int(byte),int(bit)
+        data = self.plc.read_area(areas['PA'],0,byte,1)
+        set_bool(data,0,bit,cmd)
+        self.plc.write_area(areas['PA'],0,byte,data)
+
+    def ReadDOutput(self,bytebit):
+        byte,bit = bytebit.split('.')
+        byte,bit = int(byte),int(bit)
+        data = self.plc.read_area(areas['PA'],0,byte,1)
+        status = get_bool(data,0,bit)
+        return status
+
+    def WriteMerker(self,bytebit,cmd):
+        byte,bit = bytebit.split('.')
+        byte,bit = int(byte),int(bit)
+        data = self.plc.read_area(areas['MK'],0,byte,1)
+        set_bool(data,0,bit,cmd)
+        self.plc.write_area(areas['MK'],0,byte,data)
+
+    def ReadMerker(self,bytebit):
+        byte,bit = bytebit.split('.')
+        byte,bit = int(byte),int(bit)
+        data = self.plc.read_area(areas['MK'],0,byte,1)
+        status = get_bool(data,0,bit)
+        return status
+
+    def close(self):
+        self.plc.disconnect()
+        print ("Соединение с Siemens S7-300 закрыто")

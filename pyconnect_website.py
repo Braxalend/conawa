@@ -13,13 +13,14 @@ locale.setlocale(locale.LC_ALL, '')
 app = Flask(__name__)
 app.config.from_object(__name__)
 a = Arduino(serial_port='COM8')
+
 now = datetime.datetime.now().strftime("%A, %d. %B %Y %H:%M:%S")
 time.sleep(3)
 LED_PIN = 10
 ANALOG_PIN = 0
 a.set_pin_mode(LED_PIN,'O')
 print (now)
-print ("Arduino инициализирована")
+s = S7300()
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
