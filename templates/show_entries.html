@@ -1,19 +1,158 @@
 {% extends "index.html" %}
 {% block body %}
   {% if session.logged_in %}
+
+
+
+        <div class="menu">
+            <div class="menu__mobile">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="navbar">
+                <form>
+                    <ul>
+                        <li>
+                            <a href="#Discret">
+                                <h2>Управление дискретными каналами</h2>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#Analog">
+                                <h2>Данные с аналоговых датчиков</h2>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#PWM">
+                                <h2>Управление модулируемыми выходами</h2>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#Parser">
+                                <h2>Выборочная информация из интернета</h2>
+                            </a>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+<!-- кнопки вкл выкл
+  <form action="{{url_for('press_button')}}" method="POST">
+        <p><input style="width: 200px; height: 100px" type="button" name="button" class="on-button" value="Вкл">
+        <input  style="width: 200px; height: 100px" type="button" name="button" class="on-button" value="Откл">
+        </p>
+    </form>
+-->
+<hr align="center" width="95%" size="3" color="#ff9900" />
+<div class="container">
+    <section id="Discret">
+        <div class="sheet">
+        <h2>Управление дискретными каналами</h2>
+            <div class="discretsheet">
+                <div class="switchname">
+                    Выход №13 Arduino
+                </div>
+                    <div class="switchbox">
+                        <label class="switch">
+                            <input type="checkbox" id="checkbox" class="on-button">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+            </div>
+            <div class="discretsheet">
+                <div class="switchname">
+                    Свет в спальне
+                </div>
+                    <div class="switchbox">
+                        <label class="switch">
+                            <input type="checkbox" id="checkbox1" class="on-button">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+            </div>
+            <div class="discretsheet">
+                <div class="switchname">
+                    Освещение цветов в зале
+                </div>
+                    <div class="switchbox">
+                        <label class="switch">
+                            <input type="checkbox" id="checkbox2" class="on-button">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+            </div>
+        </div>
+    </section>
+</div>
+<hr align="center" width="95%" size="3" color="#ff9900" />
+<div class="container">
+    <section id="Analog">
+        <div class="sheet">
+        <h2>Данные с аналоговых датчиков</h2>
+            <div class="discretsheet">
+                <div class="switchname">
+                    Температура
+                </div>
+                    <div class="switchbox">
+                        <output>
+                            <h2><span id="valtemp"></span></h2>
+                        </output>
+                    </div>
+            </div>
+        </div>            
+    </section>
+</div>
+<hr align="center" width="95%" size="3" color="#ff9900" />
+<div class="container">
+    <section id="PWM">
+        <div class="sheet">
+        <h2>Управление модулируемыми выходами</h2>
+            <div class="analogsheet">
+                <div class="valuename">
+                    Установка значения
+                </div>
+                    <div class="valuebox">
+                            <form onsubmit="return false" oninput="level.value = flevel.valueAsNumber">
+                                <output for="PWM1" name="level">20</output>
+                                <input name="flevel" id="PWM1" type="range" min="0" max="255" step="0.1">
+                            </form>
+                    </div>
+            </div>
+        </div>
+    </section>
+</div>
+<hr align="center" width="95%" size="3" color="#ff9900" />
+<div class="container">
+    <section id="Parser">
+        <div class="sheet">
+        <h2>Выборочная информация из интернета</h2>
+            <div class="discretsheet">
+                <div class="channelname">
+                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<hr align="center" width="95%" size="3" color="#ff9900" />
+
     <script type="text/javascript">
         $(document).on('click', 'input.on-button',
             function (){
-                var value = ($('#checkbox').is(':checked')) ? 'On': 'Off'
-//                var value = $(this).val(); обработка события по кнопкам вкл выкл
+                var value = ($('#checkbox').is(':checked')) ? 'On': 'Off';
+                var value1 = ($('#checkbox1').is(':checked')) ? 'On': 'Off';
+                var value2 = ($('#checkbox2').is(':checked')) ? 'On': 'Off';
                     $.ajax({
                         type: "POST",
                         url:"{{url_for('press_button')}}",
                         cache: false,
-                        data: {value},
-                        success: 
+                        data: {value, value1, value2},
+                        success:
                         function () {
                             console.log(value);
+                            console.log();
                         },
                         error: {
                         function (error){
@@ -67,168 +206,14 @@
                 type: "GET",
                 url:"{{url_for('analog_values')}}",
                 cache: "false",
-                success: 
+                success:
                 function (valuet) {
                     $("#valtemp").html(valuet);
-                }   
+                }
             })
         setTimeout(gettemp, 6000);
         })();
     </script>
-
-
-        <div class="menu">
-            <div class="menu__mobile">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <div class="navbar">
-                <form>
-                    <ul>
-                        <li>
-                            <a href="#Discret">
-                                <h2>Управление дискретными каналами</h2>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#Analog">
-                                <h2>Данные с аналоговых датчиков</h2>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#PWM">
-                                <h2>Управление модулируемыми выходами</h2>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#Parser">
-                                <h2>Выборочная информация из интернета</h2>
-                            </a>
-                        </li>
-                    </ul>
-                </form>
-            </div>
-        </div>
-<!-- кнопки вкл выкл
-  <form action="{{url_for('press_button')}}" method="POST">
-        <p><input style="width: 200px; height: 100px" type="button" name="button" class="on-button" value="Вкл">
-        <input  style="width: 200px; height: 100px" type="button" name="button" class="on-button" value="Откл">
-        </p>
-    </form>
--->
-<hr align="center" width="95%" size="3" color="#ff9900" />
-<div class="container">
-    <section id="Discret">
-        <div class="sheet">
-        <h2>Управление дискретными каналами</h2>
-            <div class="discretsheet">
-                <div class="switchname">
-                    Выход №10
-                </div>
-                    <div class="switchbox">
-                        <label class="switch">
-                            <input type="checkbox" id="checkbox" class="on-button">
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-            </div>
-        </div>
-    </section>
-</div>
-<hr align="center" width="95%" size="3" color="#ff9900" />
-<div class="container">
-    <section id="Analog">
-        <div class="sheet">
-        <h2>Данные с аналоговых датчиков</h2>
-            <div class="discretsheet">
-                <div class="switchname">
-                    Температура
-                </div>
-                    <div class="switchbox">
-                        <output>
-                            <h2><span id="valtemp"></span></h2>
-                        </output>
-                    </div>
-            </div>
-        </div>            
-    </section>
-</div>
-<hr align="center" width="95%" size="3" color="#ff9900" />
-<div class="container">
-    <section id="PWM">
-        <div class="sheet">
-        <h2>Управление модулируемыми выходами</h2>
-            <div class="analogsheet">
-                <div class="valuename">
-                    Установка значения
-                </div>
-                    <div class="valuebox">
-                            <form onsubmit="return false" oninput="level.value = flevel.valueAsNumber">
-                                <output for="PWM1" name="level">20</output>
-                                <input name="flevel" id="PWM1" type="range" min="0" max="255" step="0.1">
-                            </form>
-                    </div>
-            </div>
-        </div>
-    </section>
-</div>
-<hr align="center" width="95%" size="3" color="#ff9900" />
-<div class="container">
-    <section id="Parser">
-        <div class="sheet">
-        <h2>Выборочная информация из интернета</h2>
-            <div class="discretsheet">
-                <div class="channelname">
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
-            </div>
-        </div>
-    </section>
-</div>
-<hr align="center" width="95%" size="3" color="#ff9900" />
     
   {% endif %}
 {% endblock %}

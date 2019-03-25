@@ -16,9 +16,9 @@ a = Arduino(serial_port='COM8')
 
 now = datetime.datetime.now().strftime("%A, %d. %B %Y %H:%M:%S")
 time.sleep(3)
-LED_PIN = 10
+LED_PIN = 13
 ANALOG_PIN = 0
-a.set_pin_mode(LED_PIN,'O')
+a.Set_Pin_Mode(LED_PIN,'O')
 print (now)
 s = S7300()
 
@@ -56,20 +56,39 @@ def datetime_content():
 
 @app.route('/analog_values', methods = ['POST','GET'])
 def analog_values():
-    readval = a.analog_read(ANALOG_PIN)
+#    readval = a.Analog_Read(ANALOG_PIN)
+    readval = 278
     return render_template('analog_values.html', valuet=round(100*(readval/1023.), 1))
 
 @app.route('/press_button', methods = ['POST','GET'])
 def press_button():
     if request.method == 'POST':
-        if request.form['value'] == 'On':
-            print ("ON")
-            a.digital_write(LED_PIN,1)
-        elif request.form['value'] == 'Off':
-            print ("OFF")
-            a.digital_write(LED_PIN,0)
-        else:
-            pass
+            if request.form['value'] == 'On':
+                print ('Channel')
+                print ('ON')
+                a.Digital_Write(LED_PIN,1)
+            if request.form['value'] == 'Off':
+                print ('Channel')
+                print ('OFF')
+                a.Digital_Write(LED_PIN,0)
+            if request.form['value1'] == 'On':
+                print ('Channel 1')
+                print ('ON')
+                s.Write_Merker('10.2',1)
+            if request.form['value1'] == 'Off':
+                print ('Channel 1')
+                print ('OFF')
+                s.Write_Merker('10.2',0)
+            if request.form['value2'] == 'On':
+                print ('Channel 1')
+                print ('ON')
+                s.Write_Merker('10.0',1)
+            if request.form['value2'] == 'Off':
+                print ('Channel 1')
+                print ('OFF')
+                s.Write_Merker('10.0',0)
+            else:
+                pass
     return ""
 
 if __name__ == "__main__":
