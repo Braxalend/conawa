@@ -16,7 +16,7 @@ a = Arduino(serial_port='COM8')
 
 now = datetime.datetime.now().strftime("%A, %d. %B %Y %H:%M:%S")
 time.sleep(3)
-LED_PIN = 13
+LED_PIN = 10
 ANALOG_PIN = 0
 a.Set_Pin_Mode(LED_PIN,'O')
 print (now)
@@ -66,11 +66,13 @@ def press_button():
             if request.form['value'] == 'On':
                 print ('Channel')
                 print ('ON')
-                a.Digital_Write(LED_PIN,1)
+#                a.Digital_Write(LED_PIN,1)
+                s.Write_Merker('11.0', 1)
             if request.form['value'] == 'Off':
                 print ('Channel')
                 print ('OFF')
-                a.Digital_Write(LED_PIN,0)
+#                a.Digital_Write(LED_PIN,0)
+                s.Write_Merker('11.0', 0)
             if request.form['value1'] == 'On':
                 print ('Channel 1')
                 print ('ON')
