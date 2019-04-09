@@ -52,7 +52,7 @@
         <h2>Управление дискретными каналами</h2>
             <div class="discretsheet">
                 <div class="switchname">
-                    Освещение домика улитки
+                    Свет у улитки
                 </div>
                     <div class="switchbox">
                         <label class="switch">
@@ -63,7 +63,7 @@
             </div>
             <div class="discretsheet">
                 <div class="switchname">
-                    Освещение стола в спальне
+                    Свет в спальне
                 </div>
                     <div class="switchbox">
                         <label class="switch">
@@ -74,7 +74,7 @@
             </div>
             <div class="discretsheet">
                 <div class="switchname">
-                    Освещение цветов в зале
+                    Свет в зале
                 </div>
                     <div class="switchbox">
                         <label class="switch">
@@ -130,7 +130,7 @@
         <h2>Выборочная информация из интернета</h2>
             <div class="discretsheet">
                 <div class="channelname">
-                    Погноз погодыПогноз погодыПогноз погодыПогноз погодыПогноз погоды
+                    Погноз погоды Погноз погоды Погноз погоды Погноз погоды Погноз погоды
                 </div>
             </div>
         </div>
@@ -145,26 +145,26 @@
                 var value1 = ($('#checkbox1').is(':checked')) ? 'On': 'Off';
                 var value2 = ($('#checkbox2').is(':checked')) ? 'On': 'Off';
                     $.ajax({
-                        type: "POST",
-                        url:"{{url_for('press_button')}}",
+                        type: 'POST',
+                        url:'{{url_for('press_button')}}',
                         cache: false,
                         data: {value, value1, value2},
-                        success:
-                        function () {
-                            console.log(value);
-                            console.log();
-                        },
-                        error: {
-                        function (error){
-                            console.log(error);
-                        }
-                        },
-                        statusCode: {
-                            200:
-                            function () {
-                                console.log("Status press_button - Ok");
-                            }
-                        }
+//                        success:
+//                        function () {
+//                            console.log(value);
+//                            console.log();
+//                        },
+//                        error: {
+//                        function (error){
+//                            console.log(error);
+//                        }
+//                        },
+//                        statusCode: {
+//                            200:
+//                            function () {
+//                                console.log("Status press_button - Ok");
+//                            }
+//                        }
                     })
             }
         );
@@ -203,15 +203,29 @@
 
         (function gettemp(){
             $.ajax({
-                type: "GET",
-                url:"{{url_for('analog_values')}}",
-                cache: "false",
+                type: 'GET',
+                url:'{{url_for('analog_values')}}',
+                cache: 'false',
                 success:
                 function (valuet) {
-                    $("#valtemp").html(valuet);
+                    $('#valtemp').html(valuet);
                 }
             })
         setTimeout(gettemp, 6000);
+        })();
+        (function getcheckbox(){
+            $.ajax({
+                type: 'GET',
+                url:'{{url_for('checkbox_state')}}',
+                cache: 'false',
+                success:
+                function (values) {
+                        $('#checkbox').prop('checked', values[0]);
+                        $('#checkbox1').prop('checked', values[1]);
+                        $('#checkbox2').prop('checked', values[2]);
+                }
+            })
+        setTimeout(getcheckbox, 6000);
         })();
     </script>
     

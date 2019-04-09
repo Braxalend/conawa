@@ -12,13 +12,13 @@ storage = cgi.FieldStorage()
 locale.setlocale(locale.LC_ALL, '')
 app = Flask(__name__)
 app.config.from_object(__name__)
-a = Arduino(serial_port='COM8')
+#a = Arduino(serial_port='COM8')
 
 now = datetime.datetime.now().strftime("%A, %d. %B %Y %H:%M:%S")
 time.sleep(3)
 LED_PIN = 10
 ANALOG_PIN = 0
-a.Set_Pin_Mode(LED_PIN,'O')
+#a.Set_Pin_Mode(LED_PIN,'O')
 print (now)
 s = S7300()
 
@@ -60,34 +60,29 @@ def analog_values():
     readval = 278
     return render_template('analog_values.html', valuet=round(100*(readval/1023.), 1))
 
+@app.route('/checkbox_state', methods = ['POST','GET'])
+def checkbox_state():
+    value = s.Read_Merker('11.0')
+    value1 = s.Read_Merker('10.2')
+    value2 = s.Read_Merker('10.0')
+    return jsonify(value, value1, value2)
+
 @app.route('/press_button', methods = ['POST','GET'])
 def press_button():
     if request.method == 'POST':
             if request.form['value'] == 'On':
-                print ('Channel')
-                print ('ON')
 #                a.Digital_Write(LED_PIN,1)
                 s.Write_Merker('11.0', 1)
             if request.form['value'] == 'Off':
-                print ('Channel')
-                print ('OFF')
 #                a.Digital_Write(LED_PIN,0)
                 s.Write_Merker('11.0', 0)
             if request.form['value1'] == 'On':
-                print ('Channel 1')
-                print ('ON')
                 s.Write_Merker('10.2',1)
             if request.form['value1'] == 'Off':
-                print ('Channel 1')
-                print ('OFF')
                 s.Write_Merker('10.2',0)
             if request.form['value2'] == 'On':
-                print ('Channel 1')
-                print ('ON')
                 s.Write_Merker('10.0',1)
             if request.form['value2'] == 'Off':
-                print ('Channel 1')
-                print ('OFF')
                 s.Write_Merker('10.0',0)
             else:
                 pass

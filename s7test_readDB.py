@@ -36,7 +36,7 @@ def DBRead(plc,db_num,length,dbitems):
             value = get_string(data, offset)
 
         obj.__setattr__(item['name'], value)
-
+    print (obj.__getattribute__())
     return obj
 
 def get_db_size(array,bytekey,datatypekey):
