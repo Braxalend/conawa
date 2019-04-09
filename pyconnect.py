@@ -91,6 +91,13 @@ class S7300():
         status = get_bool(data,0,bit)
         return status
 
+    def ReadDB(self,dbnum, bytebit, length):
+        byte,bit = bytebit.split('.')
+        byte,bit = int(byte),int(bit)
+        data = self.plc.read_area(areas['DB'],dbnum, byte, length)
+        value = round(get_real(data,0)*100)/100
+        return value
+
     def Close(self):
         self.plc.disconnect()
         print ("Соединение с Siemens S7-300 закрыто")

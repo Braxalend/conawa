@@ -1,3 +1,4 @@
+import snap7
 from snap7.util import *
 from snap7.snap7types import *
 
@@ -11,6 +12,12 @@ S7AreaDB 0x84 DB               - areas['DB']
 S7AreaCT 0x1C Counters.        - areas['CT']
 S7AreaTM 0x1D Timers           - areas['TM']
 """
+
+ip_addr = '192.168.0.111'
+rack = 0
+slot = 2
+plc = snap7.client.Client()
+plc.connect(ip_addr, rack, slot)
 
 def WriteOutput(dev,bytebit,cmd):
     byte,bit = bytebit.split('.')
@@ -39,3 +46,18 @@ def ReadMerker(dev,bytebit):
     data = dev.read_area(areas['MK'],0,byte,1)
     status = get_bool(data,0,bit)
     return status
+
+def ReadDB(dev,dbnum, bytebit, length):
+    byte,bit = bytebit.split('.')
+    byte,bit = int(byte),int(bit)
+    data = dev.read_area(areas['DB'],dbnum, byte, length)
+    value = round(get_real(data,0)*100)/100
+    return value
+
+print (ReadDB(plc, 1, '0.0', 4)) 
+print (ReadDB(plc, 1, '4.0', 4)) 
+print (ReadDB(plc, 1, '8.0', 4)) 
+
+
+
+plc.disconnect()

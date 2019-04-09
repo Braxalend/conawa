@@ -57,15 +57,17 @@ def datetime_content():
 @app.route('/analog_values', methods = ['POST','GET'])
 def analog_values():
 #    readval = a.Analog_Read(ANALOG_PIN)
-    readval = 278
     return render_template('analog_values.html', valuet=round(100*(readval/1023.), 1))
 
-@app.route('/checkbox_state', methods = ['POST','GET'])
-def checkbox_state():
+
+@app.route('/read_alldata', methods = ['POST','GET'])
+def read_alldata():
     value = s.Read_Merker('11.0')
     value1 = s.Read_Merker('10.2')
     value2 = s.Read_Merker('10.0')
-    return jsonify(value, value1, value2)
+    readval = round(s.ReadDB(1, '0.0', 4)*100)/100
+    readval1 = round(s.ReadDB(1, '4.0', 4)*100)/100
+    return jsonify(value, value1, value2, readval, readval1)
 
 @app.route('/press_button', methods = ['POST','GET'])
 def press_button():

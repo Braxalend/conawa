@@ -1,2 +1,0 @@
-python s7test_readDB.py
-pause

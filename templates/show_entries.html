@@ -1,9 +1,6 @@
 {% extends "index.html" %}
 {% block body %}
   {% if session.logged_in %}
-
-
-
         <div class="menu">
             <div class="menu__mobile">
                 <span></span>
@@ -93,11 +90,21 @@
         <h2>Данные с аналоговых датчиков</h2>
             <div class="discretsheet">
                 <div class="switchname">
-                    Температура
+                    Температура 1
                 </div>
                     <div class="switchbox">
                         <output>
                             <h2><span id="valtemp"></span></h2>
+                        </output>
+                    </div>
+            </div>
+            <div class="discretsheet">        
+                <div class="switchname">
+                    Температура 2
+                </div>
+                    <div class="switchbox">
+                        <output>
+                            <h2><span id="valtemp1"></span></h2>
                         </output>
                     </div>
             </div>
@@ -115,7 +122,7 @@
                 </div>
                     <div class="valuebox">
                             <form onsubmit="return false" oninput="level.value = flevel.valueAsNumber">
-                                <output for="PWM1" name="level">20</output>
+                                <output for="PWM1" name="level">127.5</output>
                                 <input name="flevel" id="PWM1" type="range" min="0" max="255" step="0.1">
                             </form>
                     </div>
@@ -137,7 +144,6 @@
     </section>
 </div>
 <hr align="center" width="95%" size="3" color="#ff9900" />
-
     <script type="text/javascript">
         $(document).on('click', 'input.on-button',
             function (){
@@ -168,7 +174,6 @@
                     })
             }
         );
-
         (function($){
             $(function() {
                 $('.menu__mobile').on('click', function() {
@@ -181,7 +186,6 @@
                 });
             });
         })(jQuery);
-
         $(document).ready(function(){
             $('.navbar').on('click','a', function (event) {
                 //отменяем стандартную обработку нажатия по ссылке
@@ -200,34 +204,34 @@
                 $('body,html').animate({scrollTop: top - hgt}, 1500);
             });
         });
-
-        (function gettemp(){
+//        (function gettemp(){
+//            $.ajax({
+//                type: 'GET',
+//                url:'{{url_for('analog_values')}}',
+//                cache: 'false',
+//                success:
+//                function (values) {
+//
+//                }
+//            })
+//        setTimeout(gettemp, 6000);
+//        })();
+        (function getalldata(){
             $.ajax({
                 type: 'GET',
-                url:'{{url_for('analog_values')}}',
-                cache: 'false',
-                success:
-                function (valuet) {
-                    $('#valtemp').html(valuet);
-                }
-            })
-        setTimeout(gettemp, 6000);
-        })();
-        (function getcheckbox(){
-            $.ajax({
-                type: 'GET',
-                url:'{{url_for('checkbox_state')}}',
+                url:'{{url_for('read_alldata')}}',
                 cache: 'false',
                 success:
                 function (values) {
-                        $('#checkbox').prop('checked', values[0]);
-                        $('#checkbox1').prop('checked', values[1]);
-                        $('#checkbox2').prop('checked', values[2]);
+                    $('#checkbox').prop('checked', values[0]);
+                    $('#checkbox1').prop('checked', values[1]);
+                    $('#checkbox2').prop('checked', values[2]);
+                    $('#valtemp').html(values[3]);
+                    $('#valtemp1').html(values[4]);
                 }
             })
-        setTimeout(getcheckbox, 6000);
+        setTimeout(getalldata, 6000);
         })();
-    </script>
-    
+    </script>  
   {% endif %}
 {% endblock %}
