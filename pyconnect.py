@@ -20,10 +20,10 @@ class Arduino():
             return int(value)
     def Digital_Write(self, pin_number, digital_value):
         command = (''.join(('WD', str(pin_number), ':', str(digital_value)))).encode()
-        self.conn.write(command) 
+        self.conn.write(command)
     def Analog_Read(self, pin_number):
         command = (''.join(('RA', str(pin_number)))).encode()
-        self.conn.write(command) 
+        self.conn.write(command)
         line_received = self.conn.readline().decode().strip()
         header, value = line_received.split(':')
         if header == ('A'+ str(pin_number)):
@@ -37,14 +37,14 @@ class Arduino():
         line_received = self.conn.readline().decode().strip()
         header, value_h, value_t = line_received.split(':')
         if header == ('S'):
-            return (value_h, value_t)          
+            return (value_h, value_t)
     def Close(self):
         self.conn.close()
         print ("Соединение с Arduino закрыто")
 
 
 class S7300():
-    def __init__(self, ip_addr = '192.168.0.111',  rack = 0, slot = 2):
+    def __init__(self, ip_addr = '192.168.1.111',  rack = 0, slot = 2):
         self.plc = snap7.client.Client()
         self.plc.connect(ip_addr, rack, slot)
         if self.plc.get_connected():
